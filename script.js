@@ -7,13 +7,16 @@ const collisionCanvas = document.getElementById('collisionCanvas');
 const collisionCtx = collisionCanvas.getContext('2d');
 collisionCanvas.width = window.innerWidth;
 collisionCanvas.height = window.innerHeight;
-
+const background = new Image();
+background.src = 'img/field.png';
+//ctx.drawImage(background, this.x, this.y, this.width, this.height);
+//document.body.style.backgroundImage = "url('img/field.png')";
 let score = 0;
 let gameOver = false;
 ctx.font = '50px Impact';
 
 let timeToNextRaven = 0;
-let ravenInterval = 500;
+let ravenInterval = 400;
 let lastTime = 0;
 
 let ravens = [];
@@ -30,7 +33,7 @@ class Ravens {
         this.directionY = Math.random() * 5 - 2.5;
         this.markedForDeletion = false;
         this.image = new Image();
-        this.image.src = 'img/raven.png';
+        this.image.src = 'img/SoccerBall.png';
         this.frame = 0;
         this.maxFrame = 4;
         this.timeSinceFlap = 0;
@@ -52,17 +55,17 @@ class Ravens {
         this.y += this.directionY;
         if(this.x <0 - this.width) this.markedForDeletion = true;
         this.timeSinceFlap += deltaTime;
-        if(this.timeSinceFlap>this.flapInterval){
+       /* if(this.timeSinceFlap>this.flapInterval){
             if(this.frame>this.maxFrame) this.frame = 0;
             else this.frame++;
             this.timeSinceFlap=0;
-        }
+        }*/
         if(this.x < 0 -this.width) gameOver = true;
     }
     draw(){
         collisionCtx.fillStyle = this.color;
         collisionCtx.fillRect(this.x, this.y, this.width, this.height);
-        ctx.drawImage(this.image,this.frame*this.spriteWidth, 0, this.spriteWidth, this.spriteHeight, this.x, this.y,this.width, this.height);
+        ctx.drawImage(this.image, this.x, this.y,this.width, this.height);
     }
 }
 let explosions = [];
